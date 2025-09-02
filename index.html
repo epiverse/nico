@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <link href="nico.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <hr>
+        <h1>
+            Nico
+            <sup style="font-size:medium">
+                [<a href="https://github.com/epiverse/nico" target="_blank">code</a>]
+                [<a href="https://github.com/epiverse/nico/wiki" target="_blank">help</a>]
+                [<a href="https://observablehq.com/@jonasalmeida/nico" target="_blank">notebook</a>]
+            </sup>
+        </h1>
+        (Browser console JS, no npm backend)
+        <hr>
+        <!-- <div id="epiverseUI">...</div> -->
+        <div id="cliDiv">...</div>
+        <script>
+            console.log('nico methods:')
+            //import('https://epiverse.github.io/cli/cli.mjs').then(function(fun){
+            import('../nico/nico.mjs').then(function(fun){
+                nico=fun;
+                console.log(Object.getOwnPropertyNames(nico))
+            });
+            import('../cli/cli.mjs').then(function(fun){
+                cli=fun;
+                //console.log(Object.getOwnPropertyNames(cli))
+            });
+        </script>
+    </body>
+</html>
