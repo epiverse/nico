@@ -83,16 +83,28 @@ async function embed(txt){
 
 let vectors=[]
 async function embedNico(i=0){
+    console.log(` embedding ${i}/${nico.rows.length}`)
     let txt = nico.rows[i].txt
-    return await embed(txt)
+    vectors[i] = await embed(txt)
+    return vectors[i]
 }
 
 async function embedNico75(){
     for (let i=0;i<nico.rows.length;i++){
         wait(200);
-        vectors[i]= await embedNico[i]
+        vectors[i]= await embedNico(i)
     }
+    return await vectors
 }
 //await gem.embed('hello world')
 
-export {extractNico, extractNico75, session, res, rows,gem, embed, embedNico,vectors}
+export {extractNico,
+        extractNico75,
+        session,
+        res,
+        rows,
+        gem,
+        embed,
+        embedNico,
+        embedNico75,
+        vectors}
