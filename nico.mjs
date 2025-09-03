@@ -63,7 +63,7 @@ const wait = (milliseconds=1000) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-async function extractNico75() {
+async function extractNico75(){
     // process initial 75 reports
     for (var i = 0; i < 75; i++) {
         wait(200);
@@ -74,8 +74,15 @@ async function extractNico75() {
     }
     return res
 }
-;
-async function embedd() {
+// gemini embed
+let GEM = (await import('https://episphere.github.io/gemini/gem.mjs')).GEM
+let gem = new GEM
+async function embed(txt){
+    return await gem.embed(txt)
 }
 
-export {extractNico, extractNico75, session, res, rows}
+async function embedNico75(){}
+
+await gem.embed('hello world')
+
+export {extractNico, extractNico75, session, res, rows,gem, embed}
