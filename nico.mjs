@@ -49,7 +49,7 @@ async function extractNico(i) {
         })
         res_i = JSON.parse(res_i)
         res[i] = res_i
-    }else{
+    } else {
         res_i = res[i]
     }
     return {
@@ -63,7 +63,7 @@ const wait = (milliseconds=1000) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-async function extractNico75(){
+async function extractNico75() {
     // process initial 75 reports
     for (var i = 0; i < 75; i++) {
         wait(200);
@@ -77,34 +77,34 @@ async function extractNico75(){
 // gemini embed
 let GEM = (await import('https://episphere.github.io/gemini/gem.mjs')).GEM
 let gem = new GEM
-async function embed(txt){
+async function embed(txt) {
     return await gem.embed(txt)
 }
 
-let vectors=[]
-async function embedNico(i=0){
+let vectors = []
+async function embedNico(i=0) {
     console.log(` embedding ${i}/${nico.rows.length}`)
     let txt = nico.rows[i].txt
     vectors[i] = await embed(txt)
     return vectors[i]
 }
 
-async function embedNico75(){
-    for (let i=0;i<nico.rows.length;i++){
-        wait(200);
-        vectors[i]= await embedNico(i)
+async function embedNico75() {
+    if (vectors.length == 0) {
+        vectors = await (await fetch(`https://raw.githubusercontent.com/epiverse/nico/refs/heads/main/nicoVectors.json`)).json()
+    } else {
+        for (let i = 0; i < nico.rows.length; i++) {
+            wait(200);
+            vectors[i] = await embedNico(i)
+        }
     }
+
     return await vectors
 }
+
+const config = 'https://gist.githubusercontent.com/jonasalmeida/12f1d47689610671d1bc8e2bc0f268d9/raw/8009031d94018aa2f44c34585e005d6d078a39bb/nicoEmbed.json'
+
+
 //await gem.embed('hello world')
 
-export {extractNico,
-        extractNico75,
-        session,
-        res,
-        rows,
-        gem,
-        embed,
-        embedNico,
-        embedNico75,
-        vectors}
+export {extractNico, extractNico75, session, res, rows, gem, embed, embedNico, embedNico75, vectors,config}
